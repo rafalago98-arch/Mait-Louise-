@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Primeiros Passos da Maitê — Kits de Pintura | @rafaela_mlago</title>
+  <style>
+    :root {
+      --purple-900: #3B0764;
+      --purple-800: #4C1D95;
+      --purple-700: #5B21B6;
+      --purple-600: #7C3AED;
+      --purple-500: #8B5CF6;
+      --purple-100: #EDE9FE;
+      --purple-50: #F5F3FF;
+      --gold: #F59E0B;
+      --green: #16A34A;
+      --green-dark: #15803D;
+      --text: #1F2937;
+      --muted: #6B7280;
+      --border: #DDD6FE;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(180deg, #F5F3FF 0%, #EDE9FE 100%);
+      color: var(--text);
+      padding: 14px 12px 36px;
+      line-height: 1.45;
+    }
+
+    .container {
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, var(--purple-900) 0%, var(--purple-700) 55%, var(--purple-600) 100%);
+      color: #FFFFFF;
+      border-radius: 20px;
+      padding: 20px 18px;
+      box-shadow: 0 12px 28px rgba(76, 29, 149, 0.24);
+      margin-bottom: 14px;
+    }
+
+    .top-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.16);
+      color: #F3E8FF;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 11px;
+      border-radius: 999px;
+      text-decoration: none;
+      margin-bottom: 12px;
+    }
+
+    .hero h1 {
+      font-size: 22px;
+      line-height: 1.22;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 14px;
+      color: #F3E8FF;
+      margin-bottom: 14px;
+    }
+
+    .hero p strong {
+      color: #FDE68A;
+    }
+
+    .progress-box {
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 14px;
+      padding: 12px 14px;
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      gap: 8px;
+    }
+
+    .progress-pct {
+      background: var(--gold);
+      color: #1F2937;
+      padding: 2px 9px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 12px;
+      background: rgba(255, 255, 255, 0.22);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 35%;
+      background: linear-gradient(90deg, #FDE047, #F59E0B);
+      border-radius: 999px;
+      transition: width 0.3s ease;
+    }
+
+    .progress-sub {
+      font-size: 12px;
+      color: #EDE9FE;
+      margin-top: 7px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .card {
+      background: #FFFFFF;
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
+      padding: 15px;
+      margin-bottom: 11px;
+      box-shadow: 0 4px 14px rgba(91, 33, 182, 0.06);
+      position: relative;
+    }
+
+    .card.featured {
+      border-color: var(--purple-600);
+      background: linear-gradient(180deg, #FFFFFF 0%, #FAF5FF 100%);
+    }
+
+    .tag-featured {
+      display: inline-block;
+      background: var(--purple-600);
+      color: #FFFFFF;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      margin-bottom: 7px;
+    }
+
+    .card-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .card-info h2 {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--purple-900);
+      margin-bottom: 3px;
+    }
+
+    .card-info p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .price {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--purple-700);
+    }
+
+    .qty-control {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--purple-50);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 5px 7px;
+      flex-shrink: 0;
+    }
+
+    .qty-btn {
+      width: 36px;
+      height: 36px;
+      border: none;
+      border-radius: 8px;
+      background: var(--purple-700);
+      color: #FFFFFF;
+      font-size: 20px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      touch-action: manipulation;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .qty-btn:active {
+      transform: scale(0.95);
+    }
+
+    .qty-input {
+      width: 38px;
+      height: 36px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      text-align: center;
+      font-weight: 800;
+      font-size: 15px;
+      color: var(--purple-900);
+      background: #FFFFFF;
+    }
+
+    .pix-box {
+      background: #FFFFFF;
+      border: 1.5px dashed var(--purple-500);
+      border-radius: 16px;
+      padding: 14px 15px;
+      margin-bottom: 12px;
+    }
+
+    .pix-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--purple-800);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      margin-bottom: 6px;
+    }
+
+    .pix-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      background: var(--purple-50);
+      padding: 10px 12px;
+      border-radius: 12px;
+      margin-bottom: 6px;
+    }
+
+    .pix-key {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--purple-900);
+    }
+
+    .pix-owner {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .copy-btn {
+      background: var(--purple-700);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      touch-action: manipulation;
+    }
+
+    .copy-msg {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--green);
+      display: none;
+      margin-top: 4px;
+    }
+
+    .checkout-box {
+      background: #FFFFFF;
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
+      padding: 15px;
+      box-shadow: 0 6px 18px rgba(76, 29, 149, 0.08);
+    }
+
+    .field-group {
+      margin-bottom: 10px;
+    }
+
+    .field-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--purple-900);
+      margin-bottom: 4px;
+    }
+
+    .field-group input,
+    .field-group select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-size: 14px;
+      color: var(--text);
+      background: #FFFFFF;
+    }
+
+    .summary-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-top: 1px solid var(--purple-100);
+      margin-top: 4px;
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--purple-900);
+    }
+
+    .wa-btn {
+      width: 100%;
+      background: var(--green);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 6px 16px rgba(22, 163, 74, 0.25);
+      touch-action: manipulation;
+    }
+
+    .wa-btn:hover {
+      background: var(--green-dark);
+    }
+
+    .notice {
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 12px;
+      color: var(--purple-800);
+    }
+
+    .footer a {
+      color: var(--purple-700);
+      font-weight: 700;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="hero">
+      <a class="top-badge" href="https://instagram.com/rafaela_mlago" target="_blank" rel="noopener">
+        Instagram @rafaela_mlago
+      </a>
+      <h1>Nos ajude a garantir os primeiros passos da Maitê!</h1>
+      <p>
+        A Maitê teve uma <strong>hemorragia cerebral</strong> e precisa das suas primeiras <strong>órteses</strong>, que vão garantir que ela tenha <strong>sequelas mínimas no futuro</strong>. Nossa meta é vender <strong>120 kits</strong> para custear esse tratamento.
+      </p>
+
+      <div class="progress-box">
+        <div class="progress-header">
+          <span id="progress-label">42 vendidos de 120</span>
+          <span class="progress-pct" id="progress-pct">35,0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <div class="progress-sub">
+          <span id="remaining-label">Faltam 78 kits para a meta</span>
+          <span>Meta: 120 kits</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="card">
+      <div class="card-row">
+        <div class="card-info">
+          <h2>Kit 1 Molde Natalino</h2>
+          <p>1 Papai Noel de gesso 5cm, 2 pincéis, potinho com 5 tintas e encarte para colorir.</p>
+          <div class="price">R$ 25,00</div>
+        </div>
+        <div class="qty-control">
+          <button type="button" class="qty-btn" onclick="stepQty('k25', -1)">−</button>
+          <input type="number" class="qty-input" id="qty-k25" value="0" min="0" inputmode="numeric" oninput="syncFromInput()" />
+          <button type="button" class="qty-btn" onclick="stepQty('k25', 1)">+</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="card featured">
+      <span class="tag-featured">Mais Escolhido</span>
+      <div class="card-row">
+        <div class="card-info">
+          <h2>Kit 5 Moldes Natalinos</h2>
+          <p>5 moldes de gesso natalinos 5cm, 2 pincéis, potinho com 5 tintas e encarte para colorir.</p>
+          <div class="price">R$ 40,00</div>
+        </div>
+        <div class="qty-control">
+          <button type="button" class="qty-btn" onclick="stepQty('k40', -1)">−</button>
+          <input type="number" class="qty-input" id="qty-k40" value="1" min="0" inputmode="numeric" oninput="syncFromInput()" />
+          <button type="button" class="qty-btn" onclick="stepQty('k40', 1)">+</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-row">
+        <div class="card-info">
+          <h2>Apadrinhamento — Anjos Anônimos</h2>
+          <p>Você doa o kit (1 molde + tintas + pincéis + encarte) e nós entregamos para uma criança.</p>
+          <div class="price">R$ 25,00 / kit</div>
+        </div>
+        <div class="qty-control">
+          <button type="button" class="qty-btn" onclick="stepQty('apadr', -1)">−</button>
+          <input type="number" class="qty-input" id="qty-apadr" value="0" min="0" inputmode="numeric" oninput="syncFromInput()" />
+          <button type="button" class="qty-btn" onclick="stepQty('apadr', 1)">+</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="pix-box">
+      <div class="pix-title">Chave Pix (Telefone)</div>
+      <div class="pix-row">
+        <div>
+          <div class="pix-key">(44) 99759-3511</div>
+          <div class="pix-owner">Rafaela Mateus Lago</div>
+        </div>
+        <button type="button" class="copy-btn" onclick="copyPix()">Copiar Pix</button>
+      </div>
+      <div class="copy-msg" id="copy-msg">Chave Pix 44997593511 copiada!</div>
+      <div style="font-size: 12px; color: #6B7280;">
+        Pedidos só serão confirmados mediante pagamento e envio do comprovante no WhatsApp.
+      </div>
+    </section>
+
+    <section class="checkout-box">
+      <div class="field-group">
+        <label for="buyer-name">Seu nome (opcional)</label>
+        <input type="text" id="buyer-name" placeholder="Ex.: Ana Paula" />
+      </div>
+
+      <div class="field-group">
+        <label for="delivery-type">Como prefere receber?</label>
+        <select id="delivery-type">
+          <option value="Retirada / combinar entrega em Campo Mourão">Retirada / combinar entrega em Campo Mourão</option>
+          <option value="Doação (Apadrinhamento Anjos Anônimos)">Doação (Apadrinhamento Anjos Anônimos)</option>
+        </select>
+      </div>
+
+      <div class="summary-line">
+        <span id="summary-kits">1 kit selecionado</span>
+        <span id="summary-total">Total: R$ 40,00</span>
+      </div>
+
+      <button type="button" class="wa-btn" onclick="sendWhatsApp()">
+        Confirmar Pedido no WhatsApp
+      </button>
+
+      <div class="notice">
+        WhatsApp: (44) 99759-3511 • Pedidos só serão confirmados mediante pagamento.
+      </div>
+    </section>
+
+    <footer class="footer">
+      Acompanhe a evolução da Maitê em
+      <a href="https://instagram.com/rafaela_mlago" target="_blank" rel="noopener">@rafaela_mlago</a>
+    </footer>
+  </div>
+
+  <script>
+    var BASE_SOLD = 41;
+    var GOAL = 120;
+
+    function getQty(key) {
+      var el = document.getElementById("qty-" + key);
+      var val = parseInt(el.value, 10);
+      return isNaN(val) || val < 0 ? 0 : val;
+    }
+
+    function formatBRL(value) {
+      return "R$ " + value.toFixed(2).replace(".", ",");
+    }
+
+    function syncFromInput() {
+      var k25 = getQty("k25");
+      var k40 = getQty("k40");
+      var apadr = getQty("apadr");
+
+      var selectedKits = k25 + k40 + apadr;
+      var totalValue = k25 * 25 + k40 * 40 + apadr * 25;
+
+      var projectedSold = Math.min(GOAL, BASE_SOLD + selectedKits);
+      var remaining = Math.max(0, GOAL - projectedSold);
+      var pct = ((projectedSold / GOAL) * 100).toFixed(1).replace(".", ",");
+
+      document.getElementById("progress-label").textContent = projectedSold + " vendidos de " + GOAL;
+      document.getElementById("progress-pct").textContent = pct + "%";
+      document.getElementById("progress-fill").style.width = Math.min(100, (projectedSold / GOAL) * 100) + "%";
+      document.getElementById("remaining-label").textContent = "Faltam " + remaining + " kits para a meta";
+
+      document.getElementById("summary-kits").textContent =
+        selectedKits + (selectedKits === 1 ? " kit selecionado" : " kits selecionados");
+      document.getElementById("summary-total").textContent = "Total: " + formatBRL(totalValue);
+    }
+
+    function stepQty(key, delta) {
+      var el = document.getElementById("qty-" + key);
+      var next = Math.max(0, getQty(key) + delta);
+      el.value = next;
+      syncFromInput();
+    }
+
+    function copyPix() {
+      var pixKey = "44997593511";
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(pixKey).catch(function () {});
+      }
+      var msg = document.getElementById("copy-msg");
+      msg.style.display = "block";
+      setTimeout(function () {
+        msg.style.display = "none";
+      }, 3000);
+    }
+
+    function sendWhatsApp() {
+      var k25 = getQty("k25");
+      var k40 = getQty("k40");
+      var apadr = getQty("apadr");
+      var selectedKits = k25 + k40 + apadr;
+
+      if (selectedKits === 0) {
+        alert("Selecione pelo menos 1 kit antes de confirmar no WhatsApp.");
+        return;
+      }
+
+      var name = document.getElementById("buyer-name").value.trim();
+      var delivery = document.getElementById("delivery-type").value;
+      var totalValue = k25 * 25 + k40 * 40 + apadr * 25;
+
+      var lines = [
+        "Oi Rafaela! Quero garantir meu pedido pela campanha das órteses da Maitê (@rafaela_mlago):",
+        ""
+      ];
+      if (name) lines.push("• Nome: " + name);
+      if (k25 > 0) lines.push("• " + k25 + "x Kit 1 Molde Natalino (R$ 25,00 cada)");
+      if (k40 > 0) lines.push("• " + k40 + "x Kit 5 Moldes Natalinos (R$ 40,00 cada)");
+      if (apadr > 0) lines.push("• " + apadr + "x Apadrinhamento Anjos Anônimos (R$ 25,00 cada)");
+
+      lines.push("• Entrega/Destino: " + delivery);
+      lines.push("• Total: " + formatBRL(totalValue));
+      lines.push("");
+      lines.push("Vou fazer o Pix na chave (44) 99759-3511 e enviar o comprovante!");
+
+      var url = "https://wa.me/5544997593511?text=" + encodeURIComponent(lines.join("\n"));
+      window.location.href = url;
+    }
+
+    syncFromInput();
+  </script>
+</body>
+</html>
